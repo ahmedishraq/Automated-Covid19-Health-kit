@@ -136,6 +136,9 @@ void heartBeat(){
     Serial.print("Heart Rate= ");
     Serial.println(HrtRate);
     count  = 0; // For new loop and subsiquent calculations
+    if(HrtRate > 150){
+    digitalWrite(ledPin,HIGH);
+    tone(Buzzer,500);  
     lcd.clear();
     lcd.home (); // set cursor to 0,0
     lcd.print ("HEART RATE=");
@@ -144,7 +147,13 @@ void heartBeat(){
     lcd.setCursor (3,1);
     lcd.print ("Pulse/min");
     delay (5000); // after 5 sec
-    //}      
+    //} 
+    }
+    else{
+      Serial.println("Not working");
+      lcd.clear();
+      lcd.print("HEHE!");
+      }     
     
   }  
 }

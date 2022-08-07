@@ -29,6 +29,8 @@ long unsigned int pause = 5000;
 boolean lockLow = true;
 boolean takeLowTime;  
 
+int motion_counter = 0;
+
 int pirPin = 8;    //the digital pin connected to the PIR sensor's output
 int ledPin = 9;    //the digital pin connected to the LED output
 int Buzzer = 10;    //the digital pin connected to the BUZZER output
@@ -87,7 +89,7 @@ void setup() {
 
 void loop() {
     motionDetect();
-    heartBeat();
+    //heartBeat();
 }
 
 
@@ -168,6 +170,7 @@ void motionDetect(){
      if(digitalRead(pirPin) == HIGH){
        digitalWrite(ledPin, HIGH);   //the led visualizes the sensors output pin state
        tone(Buzzer,500);
+       motion_counter++;
        if(lockLow){  
          //makes sure we wait for a transition to LOW before any further output is made:
          lockLow = false;            
@@ -198,5 +201,9 @@ void motionDetect(){
            Serial.println(" sec");
            delay(50);
            }
-       }  
+       }
+       if(motion_counter > 0){
+        heartBeat(); 
+       }
+       motion_counter = 0;  
 }

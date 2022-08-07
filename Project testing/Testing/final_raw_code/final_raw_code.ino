@@ -58,6 +58,10 @@ void setup() {
     for(int i = 0; i < calibrationTime; i++){
       Serial.print(".");
       delay(1000);
+      digitalWrite(ledPin,HIGH);
+      delay(100);
+      digitalWrite(ledPin,LOW);
+      delay(100);
       }
     Serial.println(" done");
     lcd.clear();
@@ -138,7 +142,7 @@ void heartBeat(){
     count  = 0; // For new loop and subsiquent calculations
     if(HrtRate > 150){
     digitalWrite(ledPin,HIGH);
-    tone(Buzzer,500);  
+    //tone(Buzzer,500);  
     lcd.clear();
     lcd.home (); // set cursor to 0,0
     lcd.print ("HEART RATE=");

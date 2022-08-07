@@ -86,6 +86,7 @@ void setup() {
 //}
 
 void loop() {
+    motionDetect();
     heartBeat();
 }
 

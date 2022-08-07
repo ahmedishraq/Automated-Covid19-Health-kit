@@ -68,7 +68,7 @@ void setup() {
     Serial.println("SENSOR ACTIVE");
     lcd.clear();
     lcd.print("SENSOR ACTIVE");
-    delay(3500);
+    delay(2000);
   // ** setup for pir motion sensor end **
 }
 
@@ -136,6 +136,7 @@ void heartBeat(){
     Serial.print("Heart Rate= ");
     Serial.println(HrtRate);
     count  = 0; // For new loop and subsiquent calculations
+    lcd.clear();
     lcd.home (); // set cursor to 0,0
     lcd.print ("HEART RATE=");
     lcd.setCursor (0,1);        // go to start of 2nd line

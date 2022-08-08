@@ -59,7 +59,7 @@ void setup() {
   lcd.print("sensor....");
     for(int i = 0; i < calibrationTime; i++){
       Serial.print(".");
-      delay(1000);
+      delay(10);
       digitalWrite(ledPin,HIGH);
       delay(100);
       digitalWrite(ledPin,LOW);
@@ -89,7 +89,9 @@ void setup() {
 
 void loop() {
     motionDetect();
-    //heartBeat();
+    if(motion_counter > 0){
+      heartBeat();  
+    }
 }
 
 
@@ -167,6 +169,7 @@ void heartBeat(){
 
 // pir motion detection method
 void motionDetect(){
+  motion_counter = 0;
      if(digitalRead(pirPin) == HIGH){
        digitalWrite(ledPin, HIGH);   //the led visualizes the sensors output pin state
        tone(Buzzer,500);
@@ -182,6 +185,9 @@ void motionDetect(){
          }         
          takeLowTime = true;
        }
+//       if(motion_counter > 0){
+//          heartBeat(); 
+//       }
 
      if(digitalRead(pirPin) == LOW){       
        digitalWrite(ledPin, LOW);  //the led visualizes the sensors output pin state
@@ -201,9 +207,5 @@ void motionDetect(){
            Serial.println(" sec");
            delay(50);
            }
-       }
-       if(motion_counter > 0){
-        heartBeat(); 
-       }
-       motion_counter = 0;  
+       }     
 }

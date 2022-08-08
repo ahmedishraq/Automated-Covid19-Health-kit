@@ -89,9 +89,6 @@ void setup() {
 
 void loop() {
     motionDetect();
-    if(motion_counter > 0){
-      heartBeat();  
-    }
 }
 
 
@@ -169,11 +166,10 @@ void heartBeat(){
 
 // pir motion detection method
 void motionDetect(){
-  motion_counter = 0;
      if(digitalRead(pirPin) == HIGH){
        digitalWrite(ledPin, HIGH);   //the led visualizes the sensors output pin state
        tone(Buzzer,500);
-       motion_counter++;
+       motion_counter = motion_counter + 1;
        if(lockLow){  
          //makes sure we wait for a transition to LOW before any further output is made:
          lockLow = false;            
@@ -185,9 +181,6 @@ void motionDetect(){
          }         
          takeLowTime = true;
        }
-//       if(motion_counter > 0){
-//          heartBeat(); 
-//       }
 
      if(digitalRead(pirPin) == LOW){       
        digitalWrite(ledPin, LOW);  //the led visualizes the sensors output pin state

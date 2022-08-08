@@ -30,6 +30,7 @@ boolean lockLow = true;
 boolean takeLowTime;  
 
 int motion_counter = 0;
+int count_test = 0;
 
 int pirPin = 8;    //the digital pin connected to the PIR sensor's output
 int ledPin = 9;    //the digital pin connected to the LED output
@@ -88,7 +89,8 @@ void setup() {
 //}
 
 void loop() {
-    motionDetect();
+    //motionDetect();
+    test2();
 }
 
 
@@ -201,4 +203,22 @@ void motionDetect(){
            delay(50);
            }
        }     
+}
+
+void test(){
+    digitalWrite(ledPin, HIGH);
+    delay(500);
+
+}
+
+void test2(){
+  for(int i=0;i<6;i++){
+    if(i == 4){
+      test();  
+    }
+    else{
+      digitalWrite(ledPin,LOW);
+      delay(600);  
+    }  
+  }  
 }

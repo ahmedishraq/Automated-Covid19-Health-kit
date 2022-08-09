@@ -235,16 +235,17 @@ void test2(){
 
 // MLX90614 Sensor
 void temperature(){
-  lcd.print("Measure Temp!");
-  delay(3000);
   temp_amb = mlx.readAmbientTempC();
-  temp_obj = mlx.readObjectTempC();
+  temp_obj = mlx.readObjectTempF();
 
-  if(temp_obj > 37){
+  if(temp_obj > 100){
     Serial.println("HIGH TEMP..");
     digitalWrite(ledPin,HIGH);
     delay(1000);
+    digitalWrite(ledPin, LOW);
     tone(Buzzer,500);
+    delay(1000);
+    noTone(Buzzer);
     lcd.clear();
     lcd.print("HIGH TEMP...");
     delay(1000);  
@@ -258,14 +259,14 @@ void temperature(){
   lcd.setCursor(10,0);
   lcd.print(temp_amb);
   lcd.setCursor(15,0);
-  lcd.write(1);
+  lcd.print("C");
   lcd.setCursor(0,1);
   lcd.print("Body Temp:");
   lcd.setCursor(10,1);
   lcd.print(temp_obj);
   delay(5000);
   lcd.setCursor(15,1);
-  lcd.write(1);
+  lcd.print("F");
 
   // Serial monitor
   Serial.print("Room Temp:");

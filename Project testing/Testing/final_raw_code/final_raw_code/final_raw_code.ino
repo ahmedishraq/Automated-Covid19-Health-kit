@@ -10,6 +10,10 @@ int period = 20; // delay 20 ms
 long count = 0; // count for number of picks
 long HrtRate =0; // Heart rate (determined)
 long Cal_hrt_rate = 0; // calibrated heart rate
+boolean hb = false;
+
+#define samp_siz 4
+#define rise_threshold 5
 
 // For calculation of the difference of time
 long time1 = 0; 
@@ -101,6 +105,7 @@ void setup() {
 
 void loop() {
   temperature();
+  
 }
 
 
@@ -154,9 +159,6 @@ void heartBeat(){
     Serial.print("Heart Rate= ");
     Serial.println(HrtRate);
     count  = 0; // For new loop and subsiquent calculations
-    if(HrtRate > 150){
-    digitalWrite(ledPin,HIGH);
-    //tone(Buzzer,500);  
     lcd.clear();
     lcd.home (); // set cursor to 0,0
     lcd.print ("HEART RATE=");
@@ -164,15 +166,8 @@ void heartBeat(){
     lcd.print(Cal_hrt_rate);
     lcd.setCursor (3,1);
     lcd.print ("Pulse/min");
-    delay (5000); // after 5 sec
-    //} 
-    }
-    else{
-      Serial.println("Not working");
-      lcd.clear();
-      lcd.print("HEHE!");
-      }     
-    
+    delay (7000); // after 7 sec
+    //}      
   }  
 }
 
@@ -215,40 +210,41 @@ void motionDetect(){
        }     
 }
 
-void test(){
-    digitalWrite(ledPin, HIGH);
-    delay(500);
-
-}
-
-void test2(){
-  for(int i=0;i<6;i++){
-    if(i == 4){
-      test();  
-    }
-    else{
-      digitalWrite(ledPin,LOW);
-      delay(600);  
-    }  
-  }  
-}
-
 // MLX90614 Sensor
 void temperature(){
   temp_amb = mlx.readAmbientTempC();
   temp_obj = mlx.readObjectTempF();
 
-  if(temp_obj > 100){
+  if(temp_obj > 90){
+    hb = true;
     Serial.println("HIGH TEMP..");
     digitalWrite(ledPin,HIGH);
-    delay(1000);
+    delay(2000);
     digitalWrite(ledPin, LOW);
     tone(Buzzer,500);
-    delay(1000);
+    delay(2000);
     noTone(Buzzer);
     lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Body Temp:");
+    lcd.setCursor(10,0);
+    lcd.print(temp_obj);
+    lcd.clear();
     lcd.print("HIGH TEMP...");
-    delay(1000);  
+    lcd.cursor(1,0);
+    lcd.print("Check heartbeat");
+    delay(6000);
+    for(int i=0;i<50;i++){
+      heartBeat();
+      lcd.clear();
+      lcd.print("Measuring");
+      lcd.setCursor(1,0);
+      lcd.print("Heart Beat...");
+      digitalWrite(ledPin, HIGH);
+      delay(100);
+      digitalWrite(ledPin,LOW);
+      delay(100);  
+    }
   }
   else{
   }
@@ -264,7 +260,7 @@ void temperature(){
   lcd.print("Body Temp:");
   lcd.setCursor(10,1);
   lcd.print(temp_obj);
-  delay(5000);
+  //delay(5000);
   lcd.setCursor(15,1);
   lcd.print("F");
 
@@ -274,5 +270,5 @@ void temperature(){
   Serial.print("Body Temp:");
   Serial.println(temp_obj);
 
-  delay(1000);  
+  delay(4000);  
 }

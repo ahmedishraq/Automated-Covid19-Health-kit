@@ -1,6 +1,6 @@
 #include <Adafruit_MLX90614.h>
-
 #include <LiquidCrystal.h>
+
 
 LiquidCrystal lcd(2,3,4,5,6,7);
 
@@ -41,7 +41,7 @@ int count_test = 0;
 int pirPin = 8;    //the digital pin connected to the PIR sensor's output
 int ledPin = 9;    //the digital pin connected to the LED output
 int Buzzer = 10;    //the digital pin connected to the BUZZER output
-
+int ledPin2 = 13;
 
 // ****** pir motion sensor intializing end *****
 
@@ -63,6 +63,7 @@ void setup() {
   // ** setup for pir motion sensor start **
   pinMode(pirPin, INPUT);
   pinMode(ledPin, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
   pinMode(Buzzer, OUTPUT);
   digitalWrite(pirPin, LOW);
 
@@ -163,7 +164,7 @@ void heartBeat(){
     lcd.home (); // set cursor to 0,0
     lcd.print ("HEART RATE=");
     lcd.setCursor (0,1);        // go to start of 2nd line
-    lcd.print(Cal_hrt_rate);
+    lcd.print(HrtRate);
     lcd.setCursor (3,1);
     lcd.print ("Pulse/min");
     delay (7000); // after 7 sec
@@ -215,11 +216,13 @@ void temperature(){
   temp_amb = mlx.readAmbientTempC();
   temp_obj = mlx.readObjectTempF();
 
-  if(temp_obj > 90){
-    hb = true;
+  if(temp_obj > 99){
+    Serial.print("Body Temp:");
+    Serial.println(temp_obj);
     Serial.println("HIGH TEMP..");
+    Serial.println("Check hartbeat");
     digitalWrite(ledPin,HIGH);
-    delay(2000);
+    delay(5000);
     digitalWrite(ledPin, LOW);
     tone(Buzzer,500);
     delay(2000);
@@ -229,26 +232,28 @@ void temperature(){
     lcd.print("Body Temp:");
     lcd.setCursor(10,0);
     lcd.print(temp_obj);
+    delay(3000);
     lcd.clear();
+    lcd.home();
     lcd.print("HIGH TEMP...");
-    lcd.cursor(1,0);
+    lcd.setCursor(0,1);
     lcd.print("Check heartbeat");
     delay(6000);
     for(int i=0;i<50;i++){
       heartBeat();
       lcd.clear();
       lcd.print("Measuring");
-      lcd.setCursor(1,0);
+      //Serial.println("Measing")
+      lcd.setCursor(0,1);
       lcd.print("Heart Beat...");
+      //Serial.println("Heart Beat...");
       digitalWrite(ledPin, HIGH);
       delay(100);
       digitalWrite(ledPin,LOW);
       delay(100);  
     }
   }
-  else{
-  }
-
+  else if(temp_obj > 87 && temp_obj < 99){
   // lcd display
   lcd.setCursor(0,0);
   lcd.print("Room Temp:");
@@ -263,12 +268,41 @@ void temperature(){
   //delay(5000);
   lcd.setCursor(15,1);
   lcd.print("F");
-
+  
   // Serial monitor
   Serial.print("Room Temp:");
   Serial.println(temp_amb);
   Serial.print("Body Temp:");
   Serial.println(temp_obj);
 
-  delay(4000);  
+  delay(4000);
+  digitalWrite(ledPin2,LOW);
+  }
+  else{
+    
+  // lcd display
+  lcd.setCursor(0,0);
+  lcd.print("Mini Health Kit");
+  //lcd.setCursor(10,0);
+  //lcd.print(temp_amb);
+  //lcd.setCursor(15,0);
+  //lcd.print("C");
+  lcd.setCursor(0,1);
+  lcd.print("Room Temp:");
+  lcd.setCursor(10,1);
+  lcd.print(temp_amb);
+  //delay(5000);
+  lcd.setCursor(15,1);
+  lcd.print("C");
+
+  
+  // Serial monitor
+  Serial.println("Mini Health Kit");
+  //Serial.println(temp_amb);
+  Serial.print("Room Temp:");
+  Serial.println(temp_amb);
+
+  delay(4000);
+  }
+  
 }

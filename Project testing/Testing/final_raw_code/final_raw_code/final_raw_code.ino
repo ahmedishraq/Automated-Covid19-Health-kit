@@ -82,6 +82,7 @@ void setup() {
     lcd.setCursor(0,1);
     lcd.print("Done!");
     delay(5000);
+    mlx.begin();
     Serial.println("SENSOR ACTIVE");
     lcd.clear();
     lcd.print("SENSOR ACTIVE");
@@ -99,42 +100,7 @@ void setup() {
 //}
 
 void loop() {
-  lcd.print("Measure Temp!");
-  delay(3000);
-  temp_amb = mlx.readAmbientTempC();
-  temp_obj = mlx.readObjectTempC();
-
-  if(temp_obj > 37){
-    Serial.println("HIGH TEMP..");
-    lcd.clear();
-    lcd.print("HIGH TEMP...");
-    delay(700);  
-  }
-  else{
-  }
-
-  // lcd display
-  lcd.setCursor(0,0);
-  lcd.print("Room Temp:");
-  lcd.setCursor(10,0);
-  lcd.print(temp_amb);
-  lcd.setCursor(15,0);
-  lcd.write(1);
-  lcd.setCursor(0,1);
-  lcd.print("Body Temp:");
-  lcd.setCursor(10,1);
-  lcd.print(temp_obj);
-  delay(5000);
-  lcd.setCursor(15,1);
-  lcd.write(1);
-
-  // Serial monitor
-  Serial.print("Room Temp:");
-  Serial.println(temp_amb);
-  Serial.print("Body Temp:");
-  Serial.println(temp_obj);
-
-  delay(1000); 
+  temperature();
 }
 
 
@@ -276,9 +242,12 @@ void temperature(){
 
   if(temp_obj > 37){
     Serial.println("HIGH TEMP..");
+    digitalWrite(ledPin,HIGH);
+    delay(1000);
+    tone(buzzer,500);
     lcd.clear();
     lcd.print("HIGH TEMP...");
-    delay(700);  
+    delay(1000);  
   }
   else{
   }

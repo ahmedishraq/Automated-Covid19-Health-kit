@@ -1,3 +1,5 @@
+//#include <Adafruit_LiquidCrystal.h>
+
 #include <Adafruit_MLX90614.h>
 #include <LiquidCrystal.h>
 
@@ -13,6 +15,8 @@ void setup()
 {
   Serial.begin(9600);
   Serial.println("Temperature Sensor MLX90614");
+  lcd.print("Temp");
+  delay(2000);
   mlx.begin();
 }
 

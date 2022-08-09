@@ -244,7 +244,7 @@ void temperature(){
     Serial.println("HIGH TEMP..");
     digitalWrite(ledPin,HIGH);
     delay(1000);
-    tone(buzzer,500);
+    tone(Buzzer,500);
     lcd.clear();
     lcd.print("HIGH TEMP...");
     delay(1000);  

@@ -1,4 +1,7 @@
 #include <Adafruit_MLX90614.h>
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(2,3,4,5,6,7);
 
 
 Adafruit_MLX90614 mlx = Adafruit_MLX90614();

@@ -154,7 +154,7 @@ void heartBeat(){
   }
   Serial.print(count);
   Serial.print("\n");
-  if (count>24) // when 50 picks arrived
+  if (count>49) // when 50 picks arrived
   {
     time2 = millis(); // time after the specific number of picks
     HrtRate = 30000*count/(time2 - time1); // Heart rate at 1 min =  (count/2)*60000 ms,1 pick = count/2
@@ -244,7 +244,7 @@ void temperature(){
     lcd.setCursor(0,1);
     lcd.print("Check heartbeat");
     delay(6000);
-    for(int i=0;i<25;i++){
+    for(int i=0;i<50;i++){
       heartBeat();
       lcd.clear();
       lcd.print("Measuring");

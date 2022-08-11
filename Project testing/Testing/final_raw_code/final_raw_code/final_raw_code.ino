@@ -223,7 +223,7 @@ void temperature(){
   if(temp_obj > 99){
     Serial.print("Body Temp:");
     Serial.println(temp_obj);
-    Serial.println("HIGH TEMP..");
+    Serial.println("HIGH TEMPERATURE");
     Serial.println("Check hartbeat");
     digitalWrite(ledPin,HIGH);
     tone(Buzzer,500);
@@ -240,7 +240,7 @@ void temperature(){
     delay(3000);
     lcd.clear();
     lcd.home();
-    lcd.print("HIGH TEMP...");
+    lcd.print("HIGH TEMPERATURE");
     lcd.setCursor(0,1);
     lcd.print("Check heartbeat");
     delay(6000);
@@ -259,6 +259,7 @@ void temperature(){
     }
   }
   else if(temp_obj > 87 && temp_obj < 99){
+   myservo.write(90);
   // lcd display
   lcd.setCursor(0,0);
   lcd.print("Room Temp:");
@@ -273,8 +274,6 @@ void temperature(){
   //delay(5000);
   lcd.setCursor(15,1);
   lcd.print("F");
-
-   myservo.write(90);
   
   // Serial monitor
   Serial.print("Room Temp:");

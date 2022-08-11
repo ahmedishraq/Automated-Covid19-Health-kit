@@ -108,11 +108,8 @@ void setup() {
 //}
 
 void loop() {
-  //temperature();
-  myservo.write(90);
-  Serial.println("Door Open!");
-  myservo.write(0);
-  Serial.println("Door Close");
+  temperature();
+  
   
 }
 
@@ -229,10 +226,11 @@ void temperature(){
     Serial.println("HIGH TEMP..");
     Serial.println("Check hartbeat");
     digitalWrite(ledPin,HIGH);
+    tone(Buzzer,500);
     delay(5000);
     digitalWrite(ledPin, LOW);
-    tone(Buzzer,500);
-    delay(2000);
+    //tone(Buzzer,500);
+    //delay(2000);
     noTone(Buzzer);
     lcd.clear();
     lcd.setCursor(0,0);
@@ -275,6 +273,8 @@ void temperature(){
   //delay(5000);
   lcd.setCursor(15,1);
   lcd.print("F");
+
+   myservo.write(90);
   
   // Serial monitor
   Serial.print("Room Temp:");

@@ -1,6 +1,6 @@
 #include <Adafruit_MLX90614.h>
 #include <LiquidCrystal.h>
-
+#include <Servo.h>
 
 LiquidCrystal lcd(2,3,4,5,6,7);
 
@@ -14,6 +14,8 @@ boolean hb = false;
 
 #define samp_siz 4
 #define rise_threshold 5
+
+Servo myservo;
 
 // For calculation of the difference of time
 long time1 = 0; 
@@ -55,6 +57,7 @@ float temp_obj;
 
 void setup() {
   Serial.begin(9600);
+  myservo.attach(12);
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
   // Print a message to the LCD.
@@ -105,7 +108,11 @@ void setup() {
 //}
 
 void loop() {
-  temperature();
+  //temperature();
+  myservo.write(90);
+  Serial.println("Door Open!");
+  myservo.write(0);
+  Serial.println("Door Close");
   
 }
 

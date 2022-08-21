@@ -217,10 +217,8 @@ void temperature(){
     Serial.println("Check hartbeat");
     digitalWrite(ledPin,HIGH);
     tone(Buzzer,500);
-    delay(3000);
+    delay(2500);
     digitalWrite(ledPin, LOW);
-    //tone(Buzzer,500);
-    //delay(2000);
     noTone(Buzzer);
     lcd.clear();
     lcd.setCursor(0,0);
@@ -233,15 +231,13 @@ void temperature(){
     lcd.print("HIGH TEMPERATURE");
     lcd.setCursor(0,1);
     lcd.print("Check heartbeat");
-    delay(6000);
+    delay(5000);
+    lcd.clear();
     for(int i=0;i<50;i++){
       heartBeat();
-      lcd.clear();
       lcd.print("Measuring");
-      //Serial.println("Measing")
       lcd.setCursor(0,1);
       lcd.print("Heart Beat...");
-      //Serial.println("Heart Beat...");
       digitalWrite(ledPin, HIGH);
       delay(100);
       digitalWrite(ledPin,LOW);
@@ -279,6 +275,7 @@ void temperature(){
   else{
     
   // lcd display
+  lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("Mini Health Kit");
   //lcd.setCursor(10,0);

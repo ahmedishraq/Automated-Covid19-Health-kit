@@ -72,7 +72,7 @@ void setup() {
   //digitalWrite(pirPin, LOW);
 
     //give the sensor some time to calibrate
-  Serial.println("calibrating sensor ");
+  Serial.print("Calibrating Sensor ");
   lcd.clear();
   lcd.print("calibrating");
   lcd.setCursor(0,1);
@@ -85,6 +85,7 @@ void setup() {
       digitalWrite(ledPin,LOW);
       delay(100);
       }
+    Serial.println();
     Serial.println("Calibration Done!");
     lcd.clear();
     lcd.print("Calibration");

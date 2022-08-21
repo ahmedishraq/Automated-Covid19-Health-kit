@@ -69,10 +69,10 @@ void setup() {
   pinMode(ledPin, OUTPUT);
   pinMode(ledPin2, OUTPUT);
   pinMode(Buzzer, OUTPUT);
-  digitalWrite(pirPin, LOW);
+  //digitalWrite(pirPin, LOW);
 
     //give the sensor some time to calibrate
-  Serial.print("calibrating sensor ");
+  Serial.println("calibrating sensor ");
   lcd.clear();
   lcd.print("calibrating");
   lcd.setCursor(0,1);
@@ -85,7 +85,7 @@ void setup() {
       digitalWrite(ledPin,LOW);
       delay(100);
       }
-    Serial.println(" done");
+    Serial.println("Calibration Done!");
     lcd.clear();
     lcd.print("Calibration");
     lcd.setCursor(0,1);
@@ -99,19 +99,8 @@ void setup() {
   // ** setup for pir motion sensor end **
 }
 
-//void loop() {
-//  // set the cursor to column 0, line 1
-//  // (note: line 1 is the second row, since counting begins with 0):
-//  if()
-//  lcd.setCursor(0, 1);
-//  // print the number of seconds since reset:
-//  lcd.print(millis() / 1000);
-//}
-
 void loop() {
-  temperature();
-  
-  
+  temperature(); 
 }
 
 

@@ -58,13 +58,14 @@ float temp_obj;
 void setup() {
   Serial.begin(9600);
   myservo.attach(12);
+  myservo.write(0);
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
   // Print a message to the LCD.
   lcd.print("CSE360 Project");
   delay(5000);
   // ** setup for pir motion sensor start **
-  pinMode(pirPin, INPUT);
+ // pinMode(pirPin, INPUT);
   pinMode(ledPin, OUTPUT);
   pinMode(ledPin2, OUTPUT);
   pinMode(Buzzer, OUTPUT);
@@ -259,7 +260,6 @@ void temperature(){
     }
   }
   else if(temp_obj > 87 && temp_obj < 99){
-   myservo.write(90);
   // lcd display
   lcd.setCursor(0,0);
   lcd.print("Room Temp:");
@@ -275,6 +275,7 @@ void temperature(){
   lcd.setCursor(15,1);
   lcd.print("F");
   digitalWrite(ledPin2,HIGH);
+  myservo.write(90);
   
   // Serial monitor
   Serial.print("Room Temp:");
@@ -284,6 +285,7 @@ void temperature(){
 
   delay(4000);
   digitalWrite(ledPin2,LOW);
+  myservo.write(0);
   }
   else{
     

@@ -57,7 +57,7 @@ float temp_obj;
 
 void setup() {
   Serial.begin(9600);
-  myservo.attach(12);
+  myservo.attach(11);
   myservo.write(0);
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
@@ -211,7 +211,7 @@ void temperature(){
   temp_amb = mlx.readAmbientTempC();
   temp_obj = mlx.readObjectTempF();
 
-  if(temp_obj > 99){
+  if(temp_obj > 90){
     Serial.print("Body Temp:");
     Serial.println(temp_obj);
     Serial.println("HIGH TEMPERATURE");
@@ -233,9 +233,9 @@ void temperature(){
     lcd.setCursor(0,1);
     lcd.print("Check heartbeat");
     delay(5000);
-    lcd.clear();
     for(int i=0;i<50;i++){
       heartBeat();
+      lcd.clear();
       lcd.print("Measuring");
       lcd.setCursor(0,1);
       lcd.print("Heart Beat...");
@@ -245,7 +245,7 @@ void temperature(){
       delay(100);  
     }
   }
-  else if(temp_obj > 87 && temp_obj < 99){
+  else if(temp_obj > 87 && temp_obj < 89){
   // lcd display
   lcd.setCursor(0,0);
   lcd.print("Room Temp:");

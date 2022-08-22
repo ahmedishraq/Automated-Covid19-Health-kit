@@ -211,7 +211,7 @@ void temperature(){
   temp_amb = mlx.readAmbientTempC();
   temp_obj = mlx.readObjectTempF();
 
-  if(temp_obj > 90){
+  if(temp_obj > 99){
     Serial.print("Body Temp:");
     Serial.println(temp_obj);
     Serial.println("HIGH TEMPERATURE");
@@ -245,7 +245,7 @@ void temperature(){
       delay(100);  
     }
   }
-  else if(temp_obj > 87 && temp_obj < 89){
+  else if(temp_obj > 87 && temp_obj < 99){
   // lcd display
   lcd.setCursor(0,0);
   lcd.print("Room Temp:");
